@@ -16,5 +16,4 @@ describe(Store) do
       expect(test_store.name()).to(eq("Big foot"))
     end
   end
-
 end

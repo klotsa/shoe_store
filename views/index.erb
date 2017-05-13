@@ -1,0 +1,20 @@
+<div class="container">
+  <button type="button" name="button"><a href="/">Home</a></button>
+  <button type="button" name="button"><a href="/stores/new">Add a New Store</a></button>
+  <button type="button" name="button"><a href="/stores">Edit Stores</a></button>
+  <button type="button" name="button"><a href="/brands">View all Brands</a></button>
+
+<% if @stores.any?() %>
+<h2>These are the your stores</h2>
+<ul>
+  <% @stores.each() do |store| %>
+     <li><%= store.name %></li>
+   <% end %>
+</ul>
+<% else %>
+<br><br>
+<h4>Nothing yet. Add new stores.</h4>
+<% end %>
+
+
+</div>
