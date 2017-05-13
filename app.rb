@@ -19,7 +19,18 @@ end
 #add a new store
 get('/stores/add') do
   @brands = Brand.all()
-  erb(:add_store)
+  erb(:store_form)
+end
+
+#post a new store
+post('/stores/new') do
+  name = params.fetch('name')
+  @new_store = Store.new({:name => name})
+  if @new_store.save()
+    redirect('/stores')
+  else
+    erb(:error)
+  end
 end
 
 # individual store

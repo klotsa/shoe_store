@@ -1,7 +1,6 @@
 <div class="container">
   <button type="button" name="button"><a href="/">Home</a></button>
-  <button type="button" name="button"><a href="/stores/new">Add a New Store</a></button>
-  <button type="button" name="button"><a href="/stores">Edit Stores</a></button>
+  <button type="button" name="button"><a href="/stores">Edit List of Stores</a></button>
   <button type="button" name="button"><a href="/brands">View all Brands</a></button>
 
 <h3>View all stores</h3>
@@ -10,4 +9,13 @@
     <li><a href="/stores/<%= store.id() %>"><%= store.name %></a></li>
     <% end %>
   </ul>
+
+<h3>Add a new store</h3>
+  <form action='/stores/new' method='post'>
+    <div class='form-group'>
+      <label for='store_name'>Store Name: </label>
+      <input type='text' name='name'>
+    </div>
+    <button type='submit' name='button' class='btn'>Add to Stores</button>
+  </form>
 </div>
