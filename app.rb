@@ -59,3 +59,22 @@ get('/stores/:id') do
 end
 
 #BRANDS
+#view all brands
+get('/brands') do
+  @brands = Brand.all()
+  erb(:brands)
+end
+
+#add a new brand
+get('/brands/new') do
+  erb(:brand_form)
+end
+
+#post a new brand
+post('/brands/new') do
+  name = params.fetch('name')
+  price = params.fetch('price')
+  @new_brand = Brand.create({:name => name, :price => price})
+  @brands = Brand.all()
+  erb(:brands)
+end
