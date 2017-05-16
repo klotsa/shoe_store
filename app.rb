@@ -10,7 +10,7 @@ get '/' do
   erb(:index)
 end
 
-#STORE
+#STORES
 #view all stores
 get('/stores') do
   @stores = Store.all()
@@ -34,6 +34,15 @@ post('/stores/new') do
   end
 end
 
+#rename a store
+patch('/stores/:id/edit') do
+  store_id = params.fetch('id').to_i()
+  @store = Store.find(store_id)
+  name = params.fetch('name')
+  @store.update({:name => name})
+  redirect('/stores/'.concat(store_id.to_s()))
+end
+
 #delete a store
 delete("/stores/:id/delete") do
   store_id = params.fetch('id').to_i()
@@ -49,4 +58,4 @@ get('/stores/:id') do
  erb(:store)
 end
 
-#BRAND
+#BRANDS
