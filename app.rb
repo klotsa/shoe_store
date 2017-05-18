@@ -29,7 +29,7 @@ post('/stores/new') do
   if @new_store.save()
     redirect('/stores')
   else
-    erb(:error)
+    erb(:store_form)
   end
 end
 
@@ -69,6 +69,7 @@ get('/brands/new') do
   erb(:brand_form)
 end
 
+#post a new brand to a certain store
 post('/stores/:id/add_brand') do
   store = Store.find(params.fetch('id').to_i())
   name = params[:name]
@@ -76,36 +77,7 @@ post('/stores/:id/add_brand') do
   if name != "" && price != ""
     store.brands.new({:name => name, :price => price})
     store.save()
-    
-    # new_brand = Brand.create({:name => name, :price => price})
   end
   @stores = Store.all()
-  # @brands = Brand.all()
   erb(:index)
 end
-
-
-#post a new brand
-# post('/stores/:id') do
-#   @store = Store.find(params.fetch('id').to_i())
-#   name = params.fetch('name')
-#   price = params.fetch('price')
-#   @store_brand = Brand.create({:name => name, :price => price})
-#   # @store_brand.all()
-#   erb(:store)
-  # @new_brand = Brand.create({:name => name, :price => price})
-  # @brands = Brand.all()
-  # erb(:brands)
-
-
-#
-# post('/stores/:id/brand') do
-#   store_id = params.fetch('id').to_i()
-#   @store = Store.find(store_id)
-#   brand_id = params.fetch('id')
-#   brand_id.each() do |brand_id|
-#     brand = Brand.find(brand_id)
-#     @store.brands.push(brand)
-#   end
-#   redirect('/stores/'.concat(store_id.to_s()))
-# end

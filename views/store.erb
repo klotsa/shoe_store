@@ -9,7 +9,7 @@
   <% if @store.brands().any?() %>
       <ul>
         <% @store.brands().each do |brand| %>
-          <li><%= brand.name() %></a></li>
+          <li><%= brand.name() + " cost is: $" + brand.price.to_s()%> </li>
         <% end %>
       </ul>
   <% else %>
