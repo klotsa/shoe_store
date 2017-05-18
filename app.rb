@@ -19,7 +19,6 @@ end
 
 #add a new store
 get('/stores/add') do
-  #@brands = Brand.all()
   erb(:store_form)
 end
 
@@ -70,18 +69,34 @@ get('/brands/new') do
   erb(:brand_form)
 end
 
+post('/stores/:id/add_brand') do
+  store = Store.find(params.fetch('id').to_i())
+  name = params[:name]
+  price = params[:price]
+  if name != "" && price != ""
+    store.brands.new({:name => name, :price => price})
+    store.save()
+    
+    # new_brand = Brand.create({:name => name, :price => price})
+  end
+  @stores = Store.all()
+  # @brands = Brand.all()
+  erb(:index)
+end
+
+
 #post a new brand
-post('/stores/:id') do
-  @store = Store.find(params.fetch('id').to_i())
-  name = params.fetch('name')
-  price = params.fetch('price')
-  @store_brand = Brand.create({:name => name, :price => price})
-  
-  erb(:store)
+# post('/stores/:id') do
+#   @store = Store.find(params.fetch('id').to_i())
+#   name = params.fetch('name')
+#   price = params.fetch('price')
+#   @store_brand = Brand.create({:name => name, :price => price})
+#   # @store_brand.all()
+#   erb(:store)
   # @new_brand = Brand.create({:name => name, :price => price})
   # @brands = Brand.all()
   # erb(:brands)
-end
+
 
 #
 # post('/stores/:id/brand') do
