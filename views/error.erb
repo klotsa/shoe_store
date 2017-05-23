@@ -1,21 +1,9 @@
-<div class="container">
+<div class ="container">
   <div class="navigation">
   <button type="button" name="button" class="btn"><a href="/"><h3>Home</h3></a></button>
   <button type="button" name="button" class="btn"><a href="/stores"><h3>Edit List of Stores</h3></a></button>
   <button type="button" name="button" class="btn"><a href="/brands"><h3>View All Brands</h3></a></button>
 </div>
-<br><br>
-<% if @stores.any?() %>
-<h2>These are the your stores</h2>
-<ul>
-  <% @stores.each() do |store| %>
-     <li><a href="/stores/<%= store.id %>"><%= store.name %></a></li>
-   <% end %>
-</ul>
-<% else %>
-<br><br>
-<h4>Nothing yet. Add new stores.</h4>
-<% end %>
 
-
+  <h3>Something went wrong. Enter a uniqie name, or add a price.</h3>
 </div>

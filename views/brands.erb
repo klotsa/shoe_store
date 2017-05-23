@@ -1,11 +1,12 @@
 
 <div class="container">
-  <button type="button" name="button"><a href="/">Home</a></button>
-  <button type="button" name="button"><a href="/stores">Edit List of Stores</a></button>
-  <button type="button" name="button"><a href="/brands">View all Brands</a></button>
-
-
-  <h4>Shoe brands:
+  <div class="navigation">
+  <button type="button" name="button" class="btn"><a href="/"><h3>Home</h3></a></button>
+  <button type="button" name="button" class="btn"><a href="/stores"><h3>Edit List of Stores</h3></a></button>
+  <button type="button" name="button" class="btn"><a href="/brands"><h3>View All Brands</h3></a></button>
+</div>
+  <br><br>
+  <h4>&#10003; Shoe brands:
   <% if @brands.any?() %>
       <ul>
         <% @brands.each() do |brand| %>

@@ -1,11 +1,13 @@
 <div class="container">
-  <button type="button" name="button"><a href="/">Home</a></button>
-  <button type="button" name="button"><a href="/stores">Edit List of Stores</a></button>
-  <button type="button" name="button"><a href="/brands">View all Brands</a></button>
-
-  <h3>Store Name: <%= @store.name() %></h3>
-
-  <h5>Shoe brands:
+  <div class="navigation">
+  <button type="button" name="button" class="btn"><a href="/"><h3>Home</h3></a></button>
+  <button type="button" name="button" class="btn"><a href="/stores"><h3>Edit List of Stores</h3></a></button>
+  <button type="button" name="button" class="btn"><a href="/brands"><h3>View All Brands</h3></a></button>
+</div>
+<br><br>
+  <h3>The Store's name: <%= @store.name() %></h3>
+<br>
+  <h3>&#10003; Shoe brands:</h3>
   <% if @store.brands().any?() %>
       <ul>
         <% @store.brands().each do |brand| %>
@@ -16,35 +18,54 @@
       <h4>The store is empty - add a new brand</h4>
   <% end %>
 
-  <h3>Add a Brand</h3>
-  <form action="/stores/<%= @store.id %>/add_brand" method="post">
-    <div class="form-group">
-      <label for="name">Name: </label>
-      <input id="name" name="name" type="text"  class="form-control">
-    </div>
-    <div class="form-group">
-      <label for="price">Price: </label>
-      <input id="price" name="price" type="text"  class="form-control">
-    </div>
-    <button type="submit" class="btn btn">Save</button>
-  </form>
+  <h3>&#10003; Add a Brand</h3>
+   <form action="/brands" method="post">
+     <div class="form-group">
+       <label for="name">Name: </label>
+       <input id="name" name="name" type="text"  class="form-control">
+     </div>
+     <div class="form-group">
+       <label for="price">Price: </label>
+       <input id="price" name="price" type="text"  class="form-control">
+     </div>
+     <button type="submit" class="btn btn-success">Save</button>
+   </form>
 
+<br><br>
+    <%  if @brands.any?()  %>
+      <h3>&#10003; Select the brands to sell</h3></h3>
+        <form action="/stores/<%= @store.id() %>" method="post">
+          <input type="hidden" name="_method" value="patch">
+          <% @brands.each() do |brand| %>
+            <div class="checkbox form-check-inline">
+              <label class="form-check-label">
+                <input type="checkbox" name="brand_ids[]" value="<%= brand.id() %>"> <%= brand.name()%>
+              </label>
+            </div>
+          <% end %>
+          <br>
+          <button type="submit" class="btn btn-info">Update</button>
+        </form>
+    <% else %>
+        <h5>No shoe brands available.</h5>
+    <% end  %>
+<br><br>
 
   <div id="edit_name">
     <form action="/stores/<%= @store.id() %>/edit" method="post">
       <input type="hidden" name="_method" value="patch">
       <div class="form-group">
-        <label for="name"><h3>Enter a new name:</h3> </label>
+        <label for="name"><h3> &#10003; Enter a new name:</h3> </label>
         <input id="name" name="name" type="text"  class="form-control">
       </div>
-      <button type="submit" class="btn">Update</button>
+      <button type="submit" class="btn btn-info">Update</button>
     </form>
     <br><br>
 
-    <h3>Delete Store</h3>
+    <h3>&#10003; Delete Store</h3>
     <form action="/stores/<%= @store.id() %>/delete" method="post">
       <input type="hidden" name="_method" value="delete">
-      <button type="submit" class="btn">Delete</button>
+      <button type="submit" class="btn btn-danger">Delete</button>
     </form>
   </div>
 </div>

@@ -1,4 +1,19 @@
 <div class="container">
-  <button type="button" name="button"><a href="/">Home</a></button>
-  <button type="button" name="button"><a href="/stores">Edit List of Stores</a></button>
-  <button type="button" name="button"><a href="/brands">View all Brands</a></button>
+  <div class="navigation">
+  <button type="button" name="button" class="btn"><a href="/"><h3>Home</h3></a></button>
+  <button type="button" name="button" class="btn"><a href="/stores"><h3>Edit List of Stores</h3></a></button>
+  <button type="button" name="button" class="btn"><a href="/brands"><h3>View All Brands</h3></a></button>
+</div>
+
+  <h3>Add a Brand</h3>
+  <form action="/brands/add_brand" method="post">
+    <div class="form-group">
+      <label for="name">Name: </label>
+      <input id="name" name="name" type="text"  class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="price">Price: </label>
+      <input id="price" name="price" type="text"  class="form-control">
+    </div>
+    <button type="submit" class="btn btn-info">Save</button>
+  </form>

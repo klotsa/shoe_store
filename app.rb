@@ -29,9 +29,21 @@ post('/stores/new') do
   if @new_store.save()
     redirect('/stores')
   else
-    erb(:store_form)
+    erb(:error)
   end
 end
+
+# individual store
+get('/stores/:id') do
+  # @store = Store.find(params.fetch('id').to_i())
+  # @brands = @store.brands()
+  store_id = params.fetch('id').to_i()
+  @store = Store.find(store_id)
+  @brands = Brand.all()
+
+ erb(:store)
+end
+
 
 #rename a store
 patch('/stores/:id/edit') do
@@ -50,12 +62,6 @@ delete("/stores/:id/delete") do
   redirect('/')
 end
 
-# individual store
-get('/stores/:id') do
-  @store = Store.find(params.fetch('id').to_i())
-  @brands = @store.brands()
- erb(:store)
-end
 
 #BRANDS
 #view all brands
@@ -69,15 +75,47 @@ get('/brands/new') do
   erb(:brand_form)
 end
 
-#post a new brand to a certain store
-post('/stores/:id/add_brand') do
-  store = Store.find(params.fetch('id').to_i())
-  name = params[:name]
-  price = params[:price]
-  if name != "" && price != ""
-    store.brands.new({:name => name, :price => price})
-    store.save()
+#add a brand to store
+patch('/stores/:id') do
+  store_id = params.fetch('id').to_i()
+  @store = Store.find(store_id)
+  brand_ids = params.fetch('brand_ids')
+  brand_ids.each() do |brand_id|
+    brand = Brand.find(brand_id)
+    @store.brands.push(brand)
   end
-  @stores = Store.all()
-  erb(:index)
+  redirect('/stores/'.concat(store_id.to_s()))
 end
+
+# delete('/stores/view/:id/edit/delete') do
+#   store_id = params.fetch('id').to_i()
+#   @store = Store.find(store_id)
+#   @store.delete()
+#   redirect('/')
+# end
+
+post ('/brands') do
+  name = params.fetch('name')
+  price = params.fetch('price')
+  @brands = Brand.new({:name => name, :price => price})
+  if @brands.save()
+  redirect(back)
+  else
+    erb(:error)
+  end
+end
+#
+# #post a new brand to a certain store
+# post('/stores/:id/add_brand') do
+#   store = Store.find(params.fetch('id').to_i())
+#   name = params[:name]
+#   price = params[:price]
+#   if name != "" && price != ""
+#     store.brands.new({:name => name, :price => price})
+#     store.save()
+#   else
+#     erb(:error)
+#   end
+#   @stores = Store.all()
+#   erb(:index)
+# end
